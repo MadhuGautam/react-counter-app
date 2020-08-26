@@ -10,6 +10,17 @@ class Counter extends Component {
     fontSize: 20,
     fontWeight: "bold",
   };
+  renderTags() {
+    if (this.state.tags.length === 0) return <p>No Tags</p>;
+
+    return (
+      <ul>
+        {this.state.tags.map((tag) => (
+          <li key={tag}>{tag}</li>
+        ))}
+      </ul>
+    );
+  }
   render() {
     return (
       <React.Fragment>
@@ -17,11 +28,8 @@ class Counter extends Component {
           {this.formatCount()}
         </span>
         <button className="btn btn-secondary btn-sm m-5">Increement</button>
-        <ul>
-          {this.state.tags.map((tag) => (
-            <li key={tag}>{tag}</li>
-          ))}
-        </ul>
+        {this.state.tags.length === 0 && "Please create a new tag."}
+        {this.renderTags()}
       </React.Fragment>
     );
   }
@@ -34,7 +42,6 @@ class Counter extends Component {
 
   formatCount() {
     const { count } = this.state;
-
     return count === 0 ? "Zero" : count;
   }
 }
